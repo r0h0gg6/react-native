@@ -418,10 +418,6 @@ task packageReactNdkLibsForBuck(type: Copy) {
     into("src/main/jni/prebuilt/lib")
 }
 
-task installArchives {
-    dependsOn("publishAllPublicationsToNpmRepository")
-}
-
 repositories {
     // Normally RNGP will set repositories for all modules,
     // but when consumed from source, we need to re-declare
@@ -437,12 +433,14 @@ android {
 
     // Used to override the NDK path/version on internal CI or by allowing
     // users to customize the NDK path/version from their root project (e.g. for M1 support)
-    if (rootProject.hasProperty("ndkPath")) {
-        ndkPath rootProject.ext.ndkPath
-    }
-    if (rootProject.hasProperty("ndkVersion")) {
-        ndkVersion rootProject.ext.ndkVersion
-    }
+    // if (rootProject.hasProperty("ndkPath")) {
+    //     ndkPath rootProject.ext.ndkPath
+    // }
+    // if (rootProject.hasProperty("ndkVersion")) {
+    //     ndkVersion rootProject.ext.ndkVersion
+    // }
+
+    ndkVersion = "21.4.7075529"
 
     defaultConfig {
         minSdkVersion(21)
@@ -756,10 +754,10 @@ apply from: "./publish.gradle"
 // the maven coordinates are on `react-android`.
 // Please note that the original coordinates, `react-native`, have been voided
 // as they caused https://github.com/facebook/react-native/issues/35210
-publishing {
-    publications {
-        getByName("release") {
-            artifactId 'react-android'
-        }
-    }
-}
+// publishing {
+//     publications {
+//         getByName("release") {
+//             artifactId 'react-android'
+//         }
+//     }
+// }
